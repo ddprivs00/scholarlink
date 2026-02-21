@@ -1,16 +1,35 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ExamHero AI | Grade Your Future</title>
+    <title>ScholarLink | The AI Bridge to Better Grades</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        /* The "Big Bucks" Glitch Effect */
+        .glitch {
+            position: relative;
+            text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                         0.025em 0.04em 0 #fffc00;
+            animation: glitch 725ms infinite;
+        }
+
+        @keyframes glitch {
+            0% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00; }
+            14% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00; }
+            15% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.025em 0 #fc00ff, -0.05em -0.05em 0 #fffc00; }
+            49% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.025em 0 #fc00ff, -0.05em -0.05em 0 #fffc00; }
+            50% { text-shadow: 0.025em 0.05em 0 #00fffc, 0.05em 0 0 #fc00ff, 0 -0.05em 0 #fffc00; }
+            99% { text-shadow: 0.025em 0.05em 0 #00fffc, 0.05em 0 0 #fc00ff, 0 -0.05em 0 #fffc00; }
+            100% { text-shadow: -0.025em 0 0 #00fffc, -0.025em -0.025em 0 #fc00ff, -0.025em -0.05em 0 #fffc00; }
+        }
+    </style>
 </head>
 <body class="bg-slate-900 text-white font-sans">
     <nav class="p-6 flex justify-between items-center max-w-6xl mx-auto">
-        <h1 class="text-2xl font-bold tracking-tighter text-blue-400">ExamHero.ai</h1>
-        <div class="hidden md:block text-slate-400 text-sm">Status: <span class="text-green-500">System Online</span></div>
+        <h1 class="text-3xl font-black tracking-tighter text-white glitch">ScholarLink</h1>
+        <div class="hidden md:block text-slate-400 text-sm">Status: <span class="text-green-500 font-mono">AI_ACTIVE</span></div>
     </nav>
 
     <header class="py-20 text-center px-4">
@@ -24,12 +43,12 @@
         <p id="msg" class="mt-4 text-sm"></p>
     </header>
 
-    <div class="max-w-4xl mx-auto bg-slate-800/50 border border-dashed border-slate-600 h-24 flex items-center justify-center rounded-lg my-10">
-        <span class="text-slate-500 text-sm italic">[Ad Space: Monetize Your Traffic Here]</span>
+    <div class="max-w-4xl mx-auto bg-slate-800/30 border border-dashed border-slate-700 h-24 flex items-center justify-center rounded-lg my-10">
+        <span class="text-slate-600 text-sm italic tracking-widest uppercase text-xs">[ Ad Revenue Terminal ]</span>
     </div>
 
     <script>
-        // Replace these with your actual keys from Supabase Dashboard -> Settings -> API
+        // CONFIGURATION: Paste your Supabase details below!
         const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE';
         const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -45,14 +64,3 @@
                 .insert([{ email: email }]);
 
             if (error) {
-                msg.innerText = "Error: Maybe you're already on the list?";
-                msg.className = "mt-4 text-red-400";
-            } else {
-                msg.innerText = "Welcome to the future! You're on the list.";
-                msg.className = "mt-4 text-green-400";
-                document.getElementById('user-email').value = "";
-            }
-        }
-    </script>
-</body>
-</html>
