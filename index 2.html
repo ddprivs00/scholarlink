@@ -1,0 +1,58 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExamHero AI | Grade Your Future</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-slate-900 text-white font-sans">
+    <nav class="p-6 flex justify-between items-center max-w-6xl mx-auto">
+        <h1 class="text-2xl font-bold tracking-tighter text-blue-400">ExamHero.ai</h1>
+        <div class="hidden md:block text-slate-400 text-sm">Status: <span class="text-green-500">System Online</span></div>
+    </nav>
+
+    <header class="py-20 text-center px-4">
+        <h2 class="text-5xl md:text-7xl font-extrabold mb-6">Stop Guessing. <br><span class="text-blue-500">Start Passing.</span></h2>
+        <p class="text-gray-400 text-xl max-w-2xl mx-auto mb-10">The AI-powered study suite that grades your essays, generates flashcards, and predicts your exam score in seconds.</p>
+        
+        <div class="bg-slate-800 p-2 rounded-2xl inline-block shadow-2xl border border-slate-700">
+            <input type="email" id="user-email" placeholder="Enter your school email" class="bg-transparent px-6 py-3 outline-none w-64 text-white">
+            <button onclick="joinWaitlist()" class="bg-blue-600 px-8 py-3 rounded-xl font-bold hover:bg-blue-500 transition">Join the Beta</button>
+        </div>
+        <p id="msg" class="mt-4 text-sm"></p>
+    </header>
+
+    <div class="max-w-4xl mx-auto bg-slate-800/50 border border-dashed border-slate-600 h-24 flex items-center justify-center rounded-lg my-10">
+        <span class="text-slate-500 text-sm italic">[Ad Space: Monetize Your Traffic Here]</span>
+    </div>
+
+    <script>
+        // Replace these with your actual keys from Supabase Dashboard -> Settings -> API
+        const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE';
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function joinWaitlist() {
+            const email = document.getElementById('user-email').value;
+            const msg = document.getElementById('msg');
+
+            if (!email) return alert("Enter an email first!");
+
+            const { data, error } = await _supabase
+                .from('waitlist')
+                .insert([{ email: email }]);
+
+            if (error) {
+                msg.innerText = "Error: Maybe you're already on the list?";
+                msg.className = "mt-4 text-red-400";
+            } else {
+                msg.innerText = "Welcome to the future! You're on the list.";
+                msg.className = "mt-4 text-green-400";
+                document.getElementById('user-email').value = "";
+            }
+        }
+    </script>
+</body>
+</html>
