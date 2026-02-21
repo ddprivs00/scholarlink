@@ -7,53 +7,54 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
-    <script>
-        // THE BRAIN - Placed at the top to fix "gradeEssay is not defined"
-        const GEMINI_API_KEY = 'AIzaSyD1lpjBnb7Dt8OGeS7528E2rqKgxOp9GqQ';
+  <script>
+    const GEMINI_API_KEY = 'AIzaSyD1lpjBnb7Dt8OGeS7528E2rqKgxOp9GqQ';
 
-        async function gradeEssay() {
-            const essay = document.getElementById('essay-input').value;
-            const btn = document.getElementById('grade-btn');
-            const box = document.getElementById('feedback-box');
-            const feedbackP = document.getElementById('ai-feedback');
+    async function gradeEssay() {
+        const essay = document.getElementById('essay-input').value;
+        const btn = document.getElementById('grade-btn');
+        const box = document.getElementById('feedback-box');
+        const feedbackP = document.getElementById('ai-feedback');
 
-            if (!essay || essay.length < 5) {
-                alert("Please paste an essay into the box first!");
-                return;
-            }
+        if (!essay || essay.length < 5) return alert("Paste your essay first!");
 
-            btn.innerText = "AI is thinking...";
-            btn.disabled = true;
+        btn.innerText = "Connecting to AI...";
+        btn.disabled = true;
 
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        "contents": [{
-                            "parts": [{
-                                "text": "You are a strict professor. Grade this essay honestly. Format: GRADE: [A-F] | FEEDBACK: [2 sentences]. Essay: " + essay
-                            }]
-                        }]
-                    })
-                });
-                
-                const data = await response.json();
+        try {
+            // We're using the 'v1beta' endpoint which is more 'browser-friendly'
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{ text: "Grade this essay strictly and give a letter grade: " + essay }]
+                    }]
+                })
+            });
+
+            const data = await response.json();
+
+            // Check if Google sent an error back instead of a grade
+            if (data.error) {
+                feedbackP.innerText = "Google says: " + data.error.message;
+            } else {
                 const aiResponse = data.candidates[0].content.parts[0].text;
-
                 box.classList.remove('hidden');
                 feedbackP.innerText = aiResponse;
-                
-            } catch (error) {
-                console.error(error);
-                alert("AI Connection Error. Check your internet.");
             }
-
-            btn.innerText = "Analyze Essay";
-            btn.disabled = false;
+            
+        } catch (e) {
+            feedbackP.innerText = "Connection blocked. Try one more time!";
+            console.error(e);
         }
-    </script>
 
+        btn.innerText = "Analyze Essay";
+        btn.disabled = false;
+    }
+</script>
     <style>
         .glitch { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00; animation: glitch 725ms infinite; }
         @keyframes glitch {
@@ -96,3 +97,4 @@
 
 </body>
 </html>
+
