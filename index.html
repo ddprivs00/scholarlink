@@ -49,8 +49,8 @@
 
     <script>
         // CONFIGURATION: Paste your Supabase details below!
-        const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE';
-        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
+       const SUPABASE_URL = 'https://eeugwaelfedqgthylasg.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVldWd3YWVsZmVkcWd0aHlsYXNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE2MTk5NzQsImV4cCI6MjA4NzE5NTk3NH0.xmzrVjnl2goia4ULv19xV6o-HDG0PT50rcpOR7s3OEU';iI6ImVldWd3YWVsZmVkcWd0aHlsYXNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE2MTk5NzQsImV4cCI6MjA4NzE5NTk3NH0.xmzrVjnl2goia4ULv19xV6o-HDG0PT50rcpOR7s3OEU';
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         async function joinWaitlist() {
@@ -64,3 +64,4 @@
                 .insert([{ email: email }]);
 
             if (error) {
+
