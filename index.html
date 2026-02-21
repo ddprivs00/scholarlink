@@ -21,6 +21,7 @@
     </style>
 </head>
 <body class="bg-slate-900 text-white font-sans">
+    
     <nav class="p-6 flex justify-between items-center max-w-6xl mx-auto">
         <h1 class="text-3xl font-black tracking-tighter text-white glitch">ScholarLink</h1>
         <div class="hidden md:block text-slate-400 text-sm">Status: <span class="text-green-500 font-mono">AI_ACTIVE</span></div>
@@ -39,66 +40,6 @@
 
     <section class="max-w-4xl mx-auto p-8 bg-slate-800 rounded-3xl border border-slate-700 shadow-2xl my-10">
         <h3 class="text-2xl font-bold mb-4 text-blue-400">AI Essay Grader</h3>
-        <p class="text-slate-400 mb-6">Paste your essay below for an instant grade and feedback.</p>
+        <p class="text-slate-400 mb-6">Paste your essay below for an instant honest grade and critique.</p>
         
-        <textarea id="essay-input" rows="8" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-4 text-white outline-none focus:border-blue-500 transition" placeholder="Paste your essay here..."></textarea>
-        
-        <button onclick="gradeEssay()" id="grade-btn" class="mt-6 bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-10 rounded-xl transition w-full md:w-auto">
-            Analyze Essay
-        </button>
-
-        <div id="feedback-box" class="hidden mt-8 p-6 bg-slate-900 rounded-xl border border-blue-500/30">
-            <h4 class="text-xl font-bold text-green-400 mb-2">Predicted Grade: <span id="predicted-grade">--</span></h4>
-            <p id="ai-feedback" class="text-slate-300 italic">Analyzing...</p>
-        </div>
-    </section>
-
-    <div class="max-w-4xl mx-auto bg-slate-800/30 border border-dashed border-slate-700 h-24 flex items-center justify-center rounded-lg my-10">
-        <span class="text-slate-600 text-sm italic tracking-widest uppercase text-xs">[ Ad Revenue Terminal ]</span>
-    </div>
-
-    <script>
-        // FIXED SUPABASE CONNECTION
-        const SUPABASE_URL = 'https://eeugwaelfedqgthylasg.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVldWd3YWVsZmVkcWd0aHlsYXNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzExMzE4MTMsImV4cCI6MjA4NjcwNzgxM30.08Xqf9958R8v21i6-778_7nU_G8K3p7vT4y-Uf-7eE4'; // Using public key from your screenshot
-        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        function gradeEssay() {
-            const essay = document.getElementById('essay-input').value;
-            const btn = document.getElementById('grade-btn');
-            const box = document.getElementById('feedback-box');
-            
-            if (!essay || essay.length < 20) return alert("Please paste a longer essay!");
-
-            btn.innerText = "AI is thinking...";
-            btn.disabled = true;
-
-            setTimeout(() => {
-                box.classList.remove('hidden');
-                document.getElementById('predicted-grade').innerText = "A- (88%)";
-                document.getElementById('ai-feedback').innerText = "Great flow! Your thesis is strong, but try adding more evidence in paragraph three.";
-                btn.innerText = "Analyze Essay";
-                btn.disabled = false;
-                box.scrollIntoView({ behavior: 'smooth' });
-            }, 2000);
-        }
-
-        async function joinWaitlist() {
-            const email = document.getElementById('user-email').value;
-            const msg = document.getElementById('msg');
-            if (!email) return alert("Enter an email first!");
-
-            const { data, error } = await _supabase.from('waitlist').insert([{ email: email }]);
-
-            if (error) {
-                msg.innerText = "Error: Check if email is already listed.";
-                msg.style.color = "#f87171";
-            } else {
-                msg.innerText = "SUCCESS: You are on the list!";
-                msg.style.color = "#4ade80";
-                document.getElementById('user-email').value = "";
-            }
-        }
-    </script>
-</body>
-</html>
+        <textarea id="essay-input" rows="8" class="w-full
